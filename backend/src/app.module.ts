@@ -1,15 +1,13 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { AppController } from './app.controller.js';
-import { AppService } from './app.service.js';
-import { DatabaseModule } from './database/database.module.js';
-import { UsersModule } from './users/users.module.js';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { DatabaseModule } from './database/database.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
-    DatabaseModule,
-    UsersModule,
+    ConfigModule.forRoot({ isGlobal: true }), // Оставляем чтение .env
+    DatabaseModule,                           // Оставляем подключение к БД
   ],
   controllers: [AppController],
   providers: [AppService],
