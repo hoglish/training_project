@@ -21,6 +21,31 @@ services:
     networks:
       - fitness_network
 
+  backend:
+    build: ./backend
+    container_name: fitness_backend
+    restart: unless-stopped
+    ports:
+      - "${BACKEND_PORT}:3000"
+    environment:
+      # Внутри Docker сеть называется "postgres", а не localhost!
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: ${POSTGRES_USER}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+      DB_NAME: ${POSTGRES_DB}
+      PORT: 3000
+    volumes:
+      # Монтируем папку с кодом, чтобы работал hot-reload
+      - ./backend:/usr/src/app
+      # Защищаем node_modules от затирания
+      - /usr/src/app/node_modules
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - fitness_network
+
 volumes:
   pg_data:
     driver: local
