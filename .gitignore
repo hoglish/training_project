@@ -1,1 +1,35 @@
 .env
+# --- Android Studio / Gradle ---
+# Сборочные артефакты
+*.apk
+*.aab
+*.ap_
+*.dex
+*.class
+bin/
+gen/
+out/
+build/
+.gradle/
+
+# Локальная конфигурация (путь к SDK и т.п.)
+local.properties
+
+# Файлы IDE (если не хотите делиться настройками)
+.idea/
+*.iml
+.navigation/
+captures/
+
+# Файлы подписи (никогда не коммитить!)
+*.jks
+*.keystore
+key.properties
+
+# Нативные сборки
+.externalNativeBuild/
+.cxx/
+
+# Логи и профилирование
+*.log
+*.hprof
