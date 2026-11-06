@@ -8,12 +8,13 @@
     tools:context=".startTestActivity">
 
     <ImageButton
-        android:id="@+id/btnBack2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/btnBack"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Назад"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_revert" />
@@ -21,169 +22,222 @@
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="293dp"
-        android:layout_height="28dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="24dp"
+        android:max="4"
+        android:progress="1"
+        app:layout_constraintBottom_toBottomOf="@id/btnBack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnBack"
+        app:layout_constraintTop_toTopOf="@id/btnBack" />
+
+    <FrameLayout
+        android:id="@+id/stepsContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.056" />
-
-    <FrameLayout
-        android:layout_width="409dp"
-        android:layout_height="638dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="2dp">
+        app:layout_constraintTop_toBottomOf="@id/btnBack">
 
         <LinearLayout
+            android:id="@+id/stepWelcome"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center"
             android:orientation="vertical"
-            android:visibility="invisible">
+            android:padding="24dp">
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/ivWelcome"
                 android:layout_width="260dp"
-                android:layout_height="283dp"
-                app:srcCompat="@drawable/_07_barbell_overhead" />
-
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="match_parent"
-                android:layout_height="66dp"
-                android:text="Напиши цель, которую ты хочешь достигнуть за время использования приложения" />
-
-            <EditText
-                android:id="@+id/editTextText"
-                android:layout_width="match_parent"
-                android:layout_height="134dp"
-                android:ems="10"
-                android:inputType="text"
-                android:text="Name" />
-
-            <Button
-                android:id="@+id/button"
-                android:layout_width="match_parent"
-                android:layout_height="63dp"
-                android:text="Продолжить" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:visibility="invisible">
-
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="260dp"
-                android:layout_height="283dp"
-                app:srcCompat="@drawable/_16_thinking" />
-
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="match_parent"
-                android:layout_height="66dp"
-                android:text="Напиши свой пол, рост, вес, с помощью этих данных мы будем рассчитывать планы тренировок и считать КБЖУ" />
-
-            <EditText
-                android:id="@+id/editTextText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="text"
-                android:text="Name" />
-
-            <EditText
-                android:id="@+id/editTextText2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="text"
-                android:text="Name" />
-
-            <EditText
-                android:id="@+id/editTextText3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="text"
-                android:text="Name" />
-
-            <Button
-                android:id="@+id/button"
-                android:layout_width="match_parent"
-                android:layout_height="63dp"
-                android:text="Продолжить" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:visibility="invisible">
-
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="272dp"
-                android:layout_height="321dp"
+                android:layout_height="260dp"
+                android:contentDescription="Приветствие"
+                android:scaleType="fitCenter"
                 app:srcCompat="@drawable/_27_peace" />
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/tvWelcome"
                 android:layout_width="match_parent"
-                android:layout_height="163dp"
-                android:text="Привет! Я Вадим - твой персональный навигатор в спортивной индустрии." />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Привет! Я Вадим - твой персональный навигатор в спортивной индустрии."
+                android:textAlignment="center"
+                android:textSize="18sp" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/btnWelcomeNext"
                 android:layout_width="match_parent"
-                android:layout_height="63dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
                 android:text="Продолжить" />
-
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/stepGoal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="24dp"
+            android:visibility="gone">
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/ivGoal"
                 android:layout_width="260dp"
-                android:layout_height="283dp"
+                android:layout_height="260dp"
+                android:contentDescription="Цель"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/_07_barbell_overhead" />
+
+            <TextView
+                android:id="@+id/tvGoalTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Напиши цель, которую ты хочешь достигнуть за время использования приложения"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/etGoal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="top|start"
+                android:hint="Например: похудеть на 5 кг"
+                android:inputType="textMultiLine|textCapSentences"
+                android:minLines="3" />
+
+            <Button
+                android:id="@+id/btnGoalNext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Продолжить" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/stepBody"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="24dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/ivBody"
+                android:layout_width="260dp"
+                android:layout_height="260dp"
+                android:contentDescription="Данные"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/_16_thinking" />
+
+            <TextView
+                android:id="@+id/tvBodyTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Укажи пол, рост и вес — по ним мы рассчитаем план тренировок и КБЖУ"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+
+            <RadioGroup
+                android:id="@+id/rgGender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rbMale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="24dp"
+                    android:text="Мужской" />
+
+                <RadioButton
+                    android:id="@+id/rbFemale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Женский" />
+            </RadioGroup>
+
+            <EditText
+                android:id="@+id/etHeight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Рост, см"
+                android:inputType="number"
+                android:maxLength="3" />
+
+            <EditText
+                android:id="@+id/etWeight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Вес, кг"
+                android:inputType="numberDecimal"
+                android:maxLength="5" />
+
+            <Button
+                android:id="@+id/btnBodyNext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Продолжить" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/stepAccount"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="24dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/ivAccount"
+                android:layout_width="260dp"
+                android:layout_height="260dp"
+                android:contentDescription="Аккаунт"
+                android:scaleType="fitCenter"
                 app:srcCompat="@drawable/_20_trophy" />
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/tvAccountTitle"
                 android:layout_width="match_parent"
-                android:layout_height="85dp"
-                android:text="Напиши логин и пароль для своего аккаунта и начнем достигать вершины" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Напиши логин и пароль для своего аккаунта и начнем достигать вершины"
+                android:textAlignment="center"
+                android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/editTextText"
+                android:id="@+id/etLogin"
                 android:layout_width="match_parent"
-                android:layout_height="58dp"
-                android:ems="10"
-                android:inputType="text"
-                android:text="Name" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="Логин"
+                android:inputType="textNoSuggestions" />
 
             <EditText
-                android:id="@+id/editTextText5"
+                android:id="@+id/etPassword"
                 android:layout_width="match_parent"
-                android:layout_height="58dp"
-                android:ems="10"
-                android:inputType="text"
-                android:text="Name" />
+                android:layout_height="wrap_content"
+                android:hint="Пароль"
+                android:inputType="textPassword" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/btnFinish"
                 android:layout_width="match_parent"
-                android:layout_height="63dp"
-                android:text="Продолжить" />
-
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Начать" />
         </LinearLayout>
+
     </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
