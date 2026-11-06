@@ -5,11 +5,12 @@ import { AppService } from './app.service';
 import { DatabaseModule } from './database/database.module';
 import { NutritionModule } from './nutrition/nutrition.module';
 import { TagsModule } from './shared/tags/tags.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }), // Оставляем чтение .env
-    DatabaseModule, NutritionModule, TagsModule,                           // Оставляем подключение к БД
+    DatabaseModule, NutritionModule, TagsModule, AuthModule,                           // Оставляем подключение к БД
   ],
   controllers: [AppController],
   providers: [AppService],
