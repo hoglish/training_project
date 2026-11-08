@@ -43,27 +43,61 @@ export class AuthService {
         return res.rows.length > 0;
     }
 
-    async register(dto: RegisterDto){
-        if(await this.isLoginTaken(dto.login)){
-            throw new ConflictException('Этот логин уже занят');
-        }
 
-        const hashedPassword = await argon2.hash(dto.password);
 
-        try{
-            const res = await this.pool.query(
-                'INSERT INTO users (login, password, email) VALUES ($1, $2, $3) RETURNING id, login',
-            [dto.login, hashedPassword, dto.email || null]
-            );
+async register(dto: RegisterDto) {
+  if (await this.isLoginTaken(dto.login)) {
+    throw new ConflictException('Этот логин уже занят');
+  }
 
-            const user = res.rows[0];
+  const hashedPassword = await argon2.hash(dto.password);
+  const client = await this.pool.connect();
 
-            return this.generateTokens(user.id, user.login)
-        } catch (error: any){
-            if (error.code == '23505') throw new ConflictException('Логин занят');
-            throw error;
-        }
+  try {
+    await client.query('BEGIN');
+
+    // 1. Создаем пользователя
+    const userRes = await client.query(
+      'INSERT INTO users (login, password, email) VALUES ($1, $2, $3) RETURNING id, login',
+      [dto.login, hashedPassword, dto.email || null]
+    );
+    const user = userRes.rows[0];
+
+    // 2. Создаем запись в user_facts (добавили date_of_birthday)
+    if (dto.gender || dto.height || dto.goal || dto.weight || dto.date_of_birthday) {
+      await client.query(
+        `INSERT INTO user_facts (user_id, sex, height, goal, weight, role, date_of_birthday) 
+         VALUES ($1, $2, $3, $4, $5, 'пользователь', $6)`,
+        [
+          user.id,
+          dto.gender || null,
+          dto.height || null,
+          dto.goal || null,
+          dto.weight || null,
+          dto.date_of_birthday || null, // <-- ДОБАВИЛИ ДАТУ
+        ]
+      );
     }
+
+    // 3. Создаем первую запись в истории весов
+    if (dto.weight) {
+      await client.query(
+        `INSERT INTO weights (user_id, weight, date) VALUES ($1, $2, CURRENT_DATE)`,
+        [user.id, dto.weight]
+      );
+    }
+
+    await client.query('COMMIT');
+    return this.generateTokens(user.id, user.login);
+
+  } catch (error: any) {
+    await client.query('ROLLBACK');
+    if (error.code === '23505') throw new ConflictException('Логин занят');
+    throw error;
+  } finally {
+    client.release();
+  }
+}
 
     async login(dto: LoginDto){
         const res = await this.pool.query('SELECT id, login, password FROM users WHERE login = $1', [dto.login]);

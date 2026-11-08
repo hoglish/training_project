@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS users (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     login VARCHAR(30) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL UNIQUE,
+    email VARCHAR(255) UNIQUE,
     is_active BOOLEAN NOT NULL DEFAULT TRUE,
     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
@@ -182,7 +182,7 @@ CREATE TABLE IF NOT EXISTS exercise_sets (
 CREATE TABLE IF NOT EXISTS weights (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL,
-    weight SMALLINT NOT NULL CHECK (weight > 0),
+    weight NUMERIC(5,1) NOT NULL CHECK (weight > 0),
     date DATE NOT NULL DEFAULT CURRENT_DATE,
     description TEXT,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
@@ -210,12 +210,12 @@ CREATE TABLE IF NOT EXISTS user_facts (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     height SMALLINT NOT NULL CHECK (height > 50),
     sex CHAR(1) NOT NULL CHECK (sex IN ('м', 'ж')),
-    role VARCHAR(10) NOT NULL CHECK (role IN ('тренер', 'пользователь', 'админ')),
-    date_of_birthday DATE NOT NULL,
-    goals_id UUID,
+    role VARCHAR(30) NOT NULL CHECK (role IN ('тренер', 'пользователь', 'админ')) DEFAULT ('пользователь'),
+    date_of_birthday DATE,
+    goal VARCHAR(255),
+     weight NUMERIC(5,1) CHECK (weight > 0),
     user_id UUID NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY (goals_id) REFERENCES goals(id) ON DELETE CASCADE
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS measurements (

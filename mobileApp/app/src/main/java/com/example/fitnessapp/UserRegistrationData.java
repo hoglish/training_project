@@ -5,6 +5,7 @@ public class UserRegistrationData {
     public String gender;
     public Integer height;
     public Float weight;
+    public String date_of_birthday;
     public String login;
     public String password;
 }
