@@ -35,6 +35,7 @@ export class AuthService {
       accessToken,
       refreshToken,
       expiresIn: 900,
+      userId: userId,
     };
     }
 

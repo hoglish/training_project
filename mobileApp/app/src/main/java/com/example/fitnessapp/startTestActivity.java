@@ -19,6 +19,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.fitnessapp.local.AppDatabase;
+import com.example.fitnessapp.local.UserProfileEntity;
 import com.example.fitnessapp.models.AuthResponse;
 import com.example.fitnessapp.models.RegisterRequest;
 import com.example.fitnessapp.network.ApiClient;
@@ -28,7 +30,6 @@ import com.example.fitnessapp.utils.SessionManager;
 import java.util.Calendar;
 
 import retrofit2.Callback;
-
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -67,7 +68,6 @@ public class startTestActivity extends AppCompatActivity {
         EditText etLogin = findViewById(R.id.etLogin);
         EditText etPassword = findViewById(R.id.etPassword);
 
-
         etBirthday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,7 +81,6 @@ public class startTestActivity extends AppCompatActivity {
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-
                                 String date = String.format("%04d-%02d-%02d", year, month + 1, dayOfMonth);
                                 etBirthday.setText(date);
                             }
@@ -99,7 +98,6 @@ public class startTestActivity extends AppCompatActivity {
             }
         });
 
-
         btnWelcomeNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,11 +107,11 @@ public class startTestActivity extends AppCompatActivity {
             }
         });
 
-        btnGoalNext.setOnClickListener(new View.OnClickListener(){
+        btnGoalNext.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 String goalText = etGoal.getText().toString().trim();
-                if(goalText.isEmpty()){
+                if (goalText.isEmpty()) {
                     Toast.makeText(startTestActivity.this, "Пожалуйста, напишите свою цель", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -125,12 +123,12 @@ public class startTestActivity extends AppCompatActivity {
             }
         });
 
-        btnBodyNext.setOnClickListener(v ->{
+        btnBodyNext.setOnClickListener(v -> {
             int selectedGender = rgGender.getCheckedRadioButtonId();
             String heightStr = etHeight.getText().toString().trim();
             String weightStr = etWeight.getText().toString().trim();
 
-            if (selectedGender == -1){
+            if (selectedGender == -1) {
                 Toast.makeText(this, "Выберите пол", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -173,7 +171,6 @@ public class startTestActivity extends AppCompatActivity {
             requestData.height = height;
             requestData.weight = weight;
             requestData.date_of_birthday = birthday;
-
 
             stepBody.setVisibility(View.GONE);
             stepAccount.setVisibility(View.VISIBLE);
@@ -224,14 +221,28 @@ public class startTestActivity extends AppCompatActivity {
                     btnFinish.setText("Начать");
 
                     if (response.isSuccessful() && response.body() != null) {
+                        AuthResponse auth = response.body();
                         SessionManager session = new SessionManager(startTestActivity.this);
-                        session.saveTokens(
-                                response.body().getAccessToken(),
-                                response.body().getRefreshToken()
-                        );
-                        Toast.makeText(startTestActivity.this, "Регистрация успешна!", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(startTestActivity.this, MainActivity.class));
-                        finish();
+                        session.saveTokens(auth.getAccessToken(), auth.getRefreshToken());
+                        session.saveUserId(auth.getUserId());
+
+                        UserProfileEntity entity = new UserProfileEntity();
+                        entity.id = auth.getUserId();
+                        entity.login = login;
+                        entity.gender = requestData.gender;
+                        entity.height = requestData.height;
+                        entity.weight = requestData.weight;
+                        entity.goal = requestData.goal;
+                        entity.dateOfBirthday = requestData.date_of_birthday;
+
+                        new Thread(() -> {
+                            AppDatabase.getInstance(startTestActivity.this).userProfileDao().insert(entity);
+                            runOnUiThread(() -> {
+                                Toast.makeText(startTestActivity.this, "Регистрация успешна!", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(startTestActivity.this, AccountPageActivity.class));
+                                finish();
+                            });
+                        }).start();
                     } else if (response.code() == 409) {
                         Toast.makeText(startTestActivity.this, "Этот логин уже занят", Toast.LENGTH_SHORT).show();
                     } else {
@@ -246,14 +257,6 @@ public class startTestActivity extends AppCompatActivity {
                     Toast.makeText(startTestActivity.this, "Ошибка сети: " + t.getMessage(), Toast.LENGTH_LONG).show();
                 }
             });
-
-
-
-
         });
-
-
-
-
     }
 }

@@ -306,7 +306,7 @@ CREATE TABLE IF NOT EXISTS notification_settings (
     remind_water BOOLEAN NOT NULL DEFAULT TRUE,
     quiet_mode_start TIME,
     quiet_mode_end TIME,
-    user_id UUID NOT NULL,
+    user_id UUID NOT NULL UNIQUE,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 

@@ -10,13 +10,16 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiClient {
     private static final String BASE_URL = "http://192.168.1.69:3000/";
     private static Retrofit retrofit = null;
+    private static Retrofit refreshRetrofit = null;
 
     public static ApiService getApiService(Context context) {
         if (retrofit == null) {
             SessionManager session = new SessionManager(context);
+            ApiService refreshApi = getRefreshApiService();
 
             OkHttpClient client = new OkHttpClient.Builder()
                     .addInterceptor(new AuthInterceptor(session))
+                    .authenticator(new TokenAuthenticator(session, refreshApi))
                     .connectTimeout(30, TimeUnit.SECONDS)
                     .readTimeout(30, TimeUnit.SECONDS)
                     .build();
@@ -28,5 +31,15 @@ public class ApiClient {
                     .build();
         }
         return retrofit.create(ApiService.class);
+    }
+
+    private static ApiService getRefreshApiService() {
+        if (refreshRetrofit == null) {
+            refreshRetrofit = new Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+        }
+        return refreshRetrofit.create(ApiService.class);
     }
 }
