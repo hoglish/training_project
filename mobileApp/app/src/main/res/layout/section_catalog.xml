@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Поиск упражнения">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etSearchWorkout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Чипы фильтров. Первый чип Все выбран. Остальные значения подгружаются из БД и добавляются в коде -->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Тип"
+        android:textSize="13sp" />
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/cgType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:singleLine="true"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipType0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Все"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:checkable="true"
+                android:checked="true" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipType1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Базовое"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:checkable="true" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipType2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Изолирующее"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:checkable="true" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipType3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Калистеника"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:checkable="true" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipType4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Кардио"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:checkable="true" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipType5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Бег"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:checkable="true" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipType6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Йога"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:checkable="true" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipType7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Растяжка"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:checkable="true" />
+
+        </com.google.android.material.chip.ChipGroup>
+
+    </HorizontalScrollView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Мышцы"
+        android:textSize="13sp" />
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/cgMuscle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:singleLine="true"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipMuscle0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Все"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:checkable="true"
+                android:checked="true" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipMuscle1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Грудь"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:checkable="true" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipMuscle2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Спина"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:checkable="true" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipMuscle3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ноги"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:checkable="true" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipMuscle4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Плечи"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:checkable="true" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipMuscle5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Руки"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:checkable="true" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipMuscle6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Кор"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:checkable="true" />
+
+        </com.google.android.material.chip.ChipGroup>
+
+    </HorizontalScrollView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Инвентарь"
+        android:textSize="13sp" />
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/cgInventory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:singleLine="true"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipInv0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Любой"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:checkable="true"
+                android:checked="true" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipInv1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Штанга"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:checkable="true" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipInv2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Гантели"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:checkable="true" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipInv3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Турник"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:checkable="true" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipInv4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Коврик"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:checkable="true" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipInv5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Без инвентаря"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:checkable="true" />
+
+        </com.google.android.material.chip.ChipGroup>
+
+    </HorizontalScrollView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Теги"
+        android:textSize="13sp" />
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/cgTags"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:singleLine="true"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipTag0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Все"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:checkable="true"
+                android:checked="true" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipTag1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Силовая"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:checkable="true" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipTag2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Дом"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:checkable="true" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipTag3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Зал"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:checkable="true" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipTag4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Улица"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:checkable="true" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipTag5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Новичок"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:checkable="true" />
+
+        </com.google.android.material.chip.ChipGroup>
+
+    </HorizontalScrollView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvWorkouts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        tools:listitem="@layout/item_workout"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:nestedScrollingEnabled="false" />
+
+    <TextView
+        android:id="@+id/tvCatalogEmpty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:text="Ничего не найдено. Сбросьте фильтры"
+        android:textSize="13sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnResetFilters"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="4dp"
+            android:text="Сбросить фильтры"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnAddWorkout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="4dp"
+            android:text="＋ Своё упражнение" />
+
+    </LinearLayout>
+
+</LinearLayout>

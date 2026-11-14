@@ -7,11 +7,13 @@ import { NutritionModule } from './nutrition/nutrition.module';
 import { TagsModule } from './shared/tags/tags.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import { WorkoutsModule } from './workouts/workouts.module';
+import { WeatherModule } from './weather/weather.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }), // Оставляем чтение .env
-    DatabaseModule, NutritionModule, TagsModule, AuthModule, UsersModule,                           // Оставляем подключение к БД
+    DatabaseModule, NutritionModule, TagsModule, AuthModule, UsersModule, WorkoutsModule, WeatherModule,                           // Оставляем подключение к БД
   ],
   controllers: [AppController],
   providers: [AppService],

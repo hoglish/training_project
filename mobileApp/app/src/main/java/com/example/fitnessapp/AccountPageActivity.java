@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -103,6 +104,11 @@ public class AccountPageActivity extends AppCompatActivity {
         btnCalcNorm.setOnClickListener(v -> calculateNutrition());
 
         loadProfile();
+
+        ImageButton btnTraining = findViewById(R.id.imageButton2);
+        btnTraining.setOnClickListener(v -> {
+            startActivity(new Intent(AccountPageActivity.this, TrainingPageActivity.class));
+        });
     }
 
     private void setupSpinners() {
@@ -388,4 +394,6 @@ public class AccountPageActivity extends AppCompatActivity {
         }, hour, minute, true);
         timePickerDialog.show();
     }
+
+
 }

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+    <TextView android:id="@+id/tvDetailName" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="22sp" android:textStyle="bold" android:text="Тренировка" />
+    <TextView android:id="@+id/tvDetailStats" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="14sp" android:layout_marginTop="4dp" android:text="🔥 0 ккал" />
+    <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvTrainingDetails" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="16dp" />
+</LinearLayout>
